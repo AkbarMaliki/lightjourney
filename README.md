@@ -1,0 +1,2 @@
+# lightjourney
+ catatan ku
