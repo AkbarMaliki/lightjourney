@@ -1,4 +1,4 @@
-importScripts("precache-manifest.8643e891ec6e783b95ba58bd17ee25cb.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.e7693c845bff5e1a34fd8916f88a5fcf.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 if (workbox) {
   console.log(`Workbox is loaded`);
