@@ -23,12 +23,12 @@
         </button>
         <button
           type="button"
-          @click="$router.push(`/blog/edit?id=${$route.query.id}`)"
+          @click="rahasia"
           class="btn btn-sm btn-primary"
         >
           <span class="typcn typcn-edit"></span> Edit
         </button>
-        <button type="button" @click="delets($route.query.id)" class="btn btn-sm btn-danger">
+        <button type="button" @click="rahasia2" class="btn btn-sm btn-danger">
           <span class="typcn typcn-delete"></span> delete
         </button>
         <div v-if="ready">
@@ -51,6 +51,21 @@ export default {
     };
   },
   methods: {
+    rahasia(){
+      if(prompt('secret code?')=="lightjourney"){
+        this.$router.push(`/blog/edit?id=${this.$route.query.id}`)
+
+      }else{
+        alert('secret code salah!')
+      }
+    },
+    rahasia2(){
+       if(prompt('secret code?')=="lightjourney"){
+        this.delets(this.$route.query.id)
+      }else{
+        alert('secret code salah!')
+      }
+    },
     delets(id) {
       if (confirm("Apakah yakin mendelete file?")) {
          db.collection('listlightjourney').where('idnya', '==', this.$route.query.id).get().then(res=>{

@@ -19,7 +19,14 @@ import 'firebase/messaging';   // for cloud messaging
 import "firebase/analytics";  
 // import 'firebase/functions';
 const firebaseConfig = {
- 
+  apiKey: "AIzaSyAyvbE3CBnxqV6wh4s1xTRwjKzq5zSYtRk",
+  authDomain: "vuez-63625.firebaseapp.com",
+  databaseURL: "https://vuez-63625.firebaseio.com",
+  projectId: "vuez-63625",
+  storageBucket: "vuez-63625.appspot.com",
+  messagingSenderId: "527099963081",
+  appId: "1:527099963081:web:6422331458f6048b098f18",
+  measurementId: "G-S2B09P6X2W"
 }; 
 if (typeof cordova === "object") {
  
