@@ -17,6 +17,8 @@
         </div>
         <hr>
         <br>
+        <br>
+        <br>
       <router-view></router-view>  
     </div>
 </template>
