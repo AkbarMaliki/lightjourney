@@ -5,6 +5,7 @@
 </template>
 
 <style lang="scss">
+@import "assets/css/all.css";
 @import "assets/css/animations.css";
 @import "assets/css/bootstrap.css";
 @import "assets/css/hr.css";

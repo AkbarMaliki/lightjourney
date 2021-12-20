@@ -1,11 +1,9 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row">
-        <div class="col-2 pl-3">
+        <div class="col-4 pl-3">
             <br>
-            <br>
-            <br>
-            <div style="position:fixed;">
+            <div style="">
             <a
                       v-for="(item, index) in content"
                       :style="[{fontWeight:item.type=='H2'?'bold':'normal'},{paddingLeft:item.type=='H3'?'40px':''}]"
@@ -13,24 +11,26 @@
                       style="overflow:hidden;font-size:14px;font-weight:bold;text-transform:uppercase;"
                       class="no-style scrollactive-item list-group-item d-flex justify-content-between align-items-center hover:bg-grey cursor-pointer "
                       :href="`#${item.content.replace(/[^a-zA-Z0-9]/g, '').split(' ').join('')}`"
-                    >{{item.content}}</a>
+                    >{{index}}. {{item.content}}</a>
             </div>
         </div>
-      <div class="col-10 pr-3">
-        <hr class="style13" />
-        <button type="button" @click="$router.go(-1)" class="btn btn-sm btn-dark">
-          <span class="typcn typcn-arrow-left"></span> Back
-        </button>
-        <button
-          type="button"
-          @click="rahasia"
-          class="btn btn-sm btn-primary"
-        >
-          <span class="typcn typcn-edit"></span> Edit
-        </button>
-        <button type="button" @click="rahasia2" class="btn btn-sm btn-danger">
-          <span class="typcn typcn-delete"></span> delete
-        </button>
+      <div class="col-12 pr-3">
+        <hr class="style13" @click="edit=!edit" />
+        <div v-if="edit">
+          <button type="button" @click="$router.go(-1)" class="btn btn-sm btn-dark">
+            <span class="typcn typcn-arrow-left"></span> Back
+          </button>
+          <button
+            type="button"
+            @click="rahasia"
+            class="btn btn-sm btn-primary"
+          >
+            <span class="typcn typcn-edit"></span> Edit
+          </button>
+          <button type="button" @click="rahasia2" class="btn btn-sm btn-danger">
+            <span class="typcn typcn-delete"></span> delete
+          </button>
+        </div>
         <div v-if="ready">
           <div v-html="datanya.content"></div>
         </div>
@@ -47,9 +47,11 @@ export default {
     return {
       datanya: {},
       ready: false,
-      content:[]
+      content:[],
+      edit:false
     };
   },
+  layout:'lightjourney',
   methods: {
     rahasia(){
       if(prompt('secret code?')=="lightjourney"){
@@ -107,29 +109,35 @@ export default {
         e.classList.add("table");
         e.parentNode.classList.add("table-responsive");
       });
-      this.$el.querySelectorAll(".copyThis").forEach(el => {
-        // console.dir(el)
-        el.style.padding = "20px";
-        var btn = document.createElement("button");
-        btn.innerHTML = "copy";
-        btn.style.position = "absolute";
-        btn.style.right = "50px";
-        btn.className += "btns btns-sm bg-white text-black font-times";
-        btn.onclick = function() {
-          var selection = window.getSelection();
-          var range = document.createRange();
-          let elm = el;
-          range.selectNodeContents(elm);
-          selection.removeAllRanges();
-          selection.addRange(range);
-          document.execCommand("Copy");
-          that.$toast.show("Copied to clipboard");
-        };
-        el.parentNode.insertBefore(btn, el);
-        // console.log(el.parentNode)
-        // el.parentNode
-        delete this.content[0]
-      });
+      document.querySelectorAll('div').forEach(e=>{if(e.style.whiteSpace=='pre'){
+        e.style.overflow='scroll'
+        e.style.height= "100px";
+        var btn = document.createElement('button');
+        btn.setAttribute('class','btn btn-sm btn-dark ml-1 mb-1');
+        btn.innerText="Copy"
+        var btn2 = document.createElement('button');
+        btn2.setAttribute('class','btn btn-sm btn-dark ml-1 mb-1');
+        btn2.innerText="Show All"
+        btn.addEventListener('click',function(){
+            var selection = window.getSelection();
+            var range = document.createRange();
+            let elm = e;
+            range.selectNodeContents(elm);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand("Copy");
+            // alert('berhasil mengcopy code')
+        })
+        btn2.addEventListener('click',()=>{
+          if(e.style.height=='100px'){
+            e.style.height= "";
+          }else{
+            e.style.height= "100px";
+          }
+        });
+        e.parentNode.insertBefore(btn, e);
+        e.parentNode.insertBefore(btn2, e);
+      }})
     }
   },
   mounted() {

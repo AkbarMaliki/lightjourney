@@ -2,10 +2,10 @@
   <div>
     <div class="row">
       <div class="offset-1 col-10">
-        <button type="button" @click="$router.push('/blog/new')" class="btn btn-sm btn-dark  "><span class="typcn typcn-news"></span> New </button>
+        <button type="button" @click="$router.push('/blog/new')" v-if="newAktif" class="btn btn-sm btn-dark  "><span class="typcn typcn-news"></span> New </button>
         <div class="sm-form">
           <label for="search">
-            <span class="typcn typcn-zoom"></span> search
+            <span class="typcn typcn-zoom" @click="newAktif=!newAktif"></span> search
           </label>
           <input
             type="text"
@@ -34,9 +34,11 @@ import axios from "axios";
 import firebase from "firebase";
 let db = firebase.firestore();
 export default {
+  layout:'lightjourney',
   data() {
     return {
       datanya: [],
+      newAktif:false,
       vdata: {
         search: ""
       }
@@ -46,7 +48,7 @@ export default {
     td() {
       let data = this.datanya;
       data = data.filter((v, i, a) => {
-          if(v['title'].indexOf(this.vdata.search)!=-1 || v['keyword'].indexOf(this.vdata.search)!=-1){
+          if(v['title'].toLowerCase().indexOf(this.vdata.search)!=-1 || v['keyword'].toLowerCase().indexOf(this.vdata.search)!=-1){
               return v
           }
       });
@@ -65,7 +67,11 @@ export default {
               ...e.data()
             };
           });
-          console.log(data)
+          data=data.filter(e=>{
+            if(e.perbandingan!='true'){ 
+              return e;
+            }
+          })
           this.datanya = data;
         });
     }

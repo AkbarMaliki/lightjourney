@@ -1,0 +1,1 @@
+.parent{display:grid;grid-template-columns:repeat(7,1fr);grid-column-gap:1px;grid-row-gap:1px}
